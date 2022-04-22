@@ -1,32 +1,17 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+  <div class="users">
+    <ul class="users_list">
+      <li class="users_item" v-for="user in users" :key="user.id">
+        <div class="users_info">
+          <div class="users_info--avatar">
+            <img class="users_info--avatar" :src="avatar(user.avatar)" :alt="user.avatar">
+          </div>
+          <div class="users_info--wrapp">
+            <p class="users_info--name">{{ user.user_name }} <span class="users_info--age">({{user.user_age}})</span></p>
+            <p class="users_info--city">{{ user.city }}</p>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
@@ -36,24 +21,73 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods: {
+    avatar(content_id) {
+      return `http://127.0.0.1:7000/avatar/${content_id}`
+    }
+  },
+  data() {
+    return {
+      users: [
+        {user_name: 'Daniil', avatar: 'stephan.jpeg', city: 'Moscow', id: 1, user_age: 18},
+        {user_name: 'Artem', avatar: 'maksim.jpeg', city: 'Krasnodar', id: 12, user_age: 27},
+        {user_name: 'Joe', avatar: 'joe.jpeg', city: 'Novosibirsk', id: 15, user_age: 21},
+        {user_name: 'Stephan', avatar: 'joe.jpeg', city: 'Sochi', id: 35, user_age: 34},
+        {user_name: 'Alina', avatar: 'alina.jpeg', city: 'Saint-Petersburg', id: 54, user_age: 23},
+        {user_name: 'Maksim', avatar: 'maksim.jpeg', city: 'Moscow', id: 5, user_age: 19},
+      ]
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.users {
+  width: 960px;
+  margin: 0 auto;
+  margin-top: 24px;
+  &_list {
+    display: flex;
+    flex-direction: column;
+  }
+  &_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    background-color: #ebebeb;
+    border-radius: 6px;
+    box-shadow: 1px 1px 7px #4e4e4e;
+    transition: all .6s ease;
+    &:hover {
+      background-color: rgb(192, 219, 255);
+      box-shadow: 5px 5px 14px #4e4e4e;
+      transform: translateY(-3px) translateX(-10px);
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &_info {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    &--avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    &--name {
+      margin-bottom: 6px;
+    }
+    // &--age {
+      
+    // }
+    &--wrapp {
+      margin-left: 12px;
+    }
+  }
 }
 </style>

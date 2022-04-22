@@ -1,0 +1,10 @@
+version: "2"
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: "couriers_db"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "habr"
+    ports:
+      - "2009:5432"
